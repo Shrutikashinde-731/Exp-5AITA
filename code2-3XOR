@@ -1,0 +1,39 @@
+
+
+plt.plot(history_relu.history['loss'])
+plt.title('Model Loss with ReLU Activation')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
+
+# Step 11: Experiment with different batch sizes
+# Example: Using a batch size of 4
+model_batch_4 = Sequential()
+model_batch_4.add(Dense(2, input_dim=2, activation='tanh'))
+model_batch_4.add(Dense(1, activation='sigmoid'))
+
+model_batch_4.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+history_batch_4 = model_batch_4.fit(X, y, epochs=1000, batch_size=4, verbose=0)
+
+# Plot loss with batch size 4
+plt.plot(history_batch_4.history['loss'])
+plt.title('Model Loss with Batch Size 4')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
+
+
+# Using different optimizer like SGD
+model_sgd = Sequential()
+model_sgd.add(Dense(2, input_dim=2, activation='tanh'))
+model_sgd.add(Dense(1, activation='sigmoid'))
+
+model_sgd.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
+history_sgd = model_sgd.fit(X, y, epochs=1000, verbose=0)
+
+# Plot loss with SGD optimizer
+plt.plot(history_sgd.history['loss'])
+plt.title('Model Loss with SGD Optimizer')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
