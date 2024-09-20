@@ -1,0 +1,60 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+import matplotlib.pyplot as plt
+
+X_3input = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]])
+y_3input = np.array([[0], [1], [1], [0], [1], [0], [0], [1]])
+
+model = Sequential()
+model.add(Dense(2, input_dim=2, activation='tanh'))  # Hidden layer with 2 neurons
+model.add(Dense(1, activation='sigmoid'))            # Output layer with 1 neuron (binary output)
+
+# Modify the model for 3-input XOR
+model_3input = Sequential()
+model_3input.add(Dense(3, input_dim=3, activation='tanh'))  # Hidden layer with 3 neurons
+model_3input.add(Dense(1, activation='sigmoid'))
+
+# Compile and train the model on the 3-input XOR
+model_3input.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+history_3input = model_3input.fit(X_3input, y_3input, epochs=1000, verbose=0)
+
+# Evaluate the 3-input XOR model
+loss_3input, accuracy_3input = model_3input.evaluate(X_3input, y_3input)
+print(f"\n3-Input XOR Model Accuracy: {accuracy_3input * 100:.2f}%")
+
+# Predictions for 3-input XOR
+predictions_3input = model_3input.predict(X_3input)
+print("\n3-Input XOR Predictions:")
+for i in range(len(X_3input)):
+    print(f"Input: {X_3input[i]} -> Predicted Output: {predictions_3input[i][0]:.2f}")
+
+# Step 9: Experiment with different optimizers, learning rates, and batch sizes
+# Example: Changing to RMSprop optimizer and learning rate = 0.01
+
+# Define X and y for the XOR problem
+X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y = np.array([[0], [1], [1], [0]])
+
+model.compile(loss='binary_crossentropy', optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.01), metrics=['accuracy'])
+history_rmsprop = model.fit(X, y, epochs=1000, verbose=0)
+
+# Plot loss with RMSprop optimizer
+plt.plot(history_rmsprop.history['loss'])
+plt.title('Model Loss with RMSprop Optimizer')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.show()
+
+# Step 10: Experiment with different activation functions (ReLU, tanh) and number of neurons
+# Changing activation function to ReLU and adding more neurons
+model_relu = Sequential()
+model_relu.add(Dense(4, input_dim=2, activation='relu'))  # 4 neurons in the hidden layer
+model_relu.add(Dense(1, activation='sigmoid'))            # Binary output
+
+# Compile and train with ReLU activation
+model_relu.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+history_relu = model_relu.fit(X, y, epochs=1000, verbose=0)
+
+# Plot loss with ReLU activation
