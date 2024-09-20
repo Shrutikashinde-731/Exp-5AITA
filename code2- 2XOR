@@ -1,0 +1,33 @@
+# prompt: Can you now generate a sigmoidal curve and other plots for output visualization
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Generate data for the sigmoid curve
+x = np.linspace(-10, 10, 100)
+y = sigmoid(x)
+
+# Plot the sigmoid curve
+plt.plot(x, y)
+plt.xlabel('x')
+plt.ylabel('sigmoid(x)')
+plt.title('Sigmoid Activation Function')
+plt.grid(True)
+plt.show()
+
+# Plot the output of the neural network
+plt.plot(outputs, label='Actual Output')
+plt.plot(predicted_output, label='Predicted Output')
+plt.xlabel('Input Index')
+plt.ylabel('Output')
+plt.title('Neural Network Output')
+plt.legend()
+plt.show()
+
+# Plot the error over epochs (if you have stored the error values during training)
+# Assuming you have a list called 'errors' storing the error values at each epoch
+# plt.plot(errors)
+# plt.xlabel('Epoch')
+# plt.ylabel('Error')
+# plt.title('Error over Epochs')
+# plt.show()
